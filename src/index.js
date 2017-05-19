@@ -1,10 +1,12 @@
 var Mustache = require('mustache');
+var debounce = require('debounce');
 
 (function($) {
   $.fn.extend({
     datoSearch: function(options) {
       this.defaultOptions = {
         highlight: '<em />',
+        debounce: 200
       };
       var settings = $.extend({}, this.defaultOptions, options);
 
@@ -24,7 +26,7 @@ var Mustache = require('mustache');
           .addClass('datocms-results')
           .insertAfter($this);
 
-        $this.on('keyup', function() {
+        $this.on('keyup', debounce(function() {
           var query = $this.val();
 
           if (lastAjaxRequest) {
@@ -62,8 +64,7 @@ var Mustache = require('mustache');
           .always(function() {
             console.log("complete");
           });
-        });
-
+        }, settings.debounce));
       });
     }
   });

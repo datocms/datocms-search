@@ -1,6 +1,6 @@
 {
   "name": "datocms-search",
-  "version": "0.0.6",
+  "version": "0.0.7",
   "description": "DatoCMS search",
   "main": "src/index.js",
   "scripts": {
@@ -27,6 +27,7 @@
   },
   "homepage": "https://github.com/datocms/datocms-search#readme",
   "dependencies": {
+    "debounce": "^1.0.2",
     "jquery": "^3.2.1",
     "mustache": "^2.3.0",
     "rimraf": "^2.6.1"
