@@ -1,0 +1,33 @@
+{
+  "name": "datocms-search",
+  "version": "0.0.1",
+  "description": "DatoCMS search",
+  "main": "index.js",
+  "scripts": {
+    "prepublish": "rimraf dist && mkdir dist && npm run dist",
+    "dist": "NODE_ENV=production webpack --progress"
+  },
+  "author": "Stefano Verna <s.verna@datocms.com>",
+  "license": "ISC",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/datocms/datocms-search.git"
+  },
+  "keywords": [
+    "datocms",
+    "dato",
+    "search"
+  ],
+  "bugs": {
+    "url": "https://github.com/datocms/datocms-search/issues"
+  },
+  "homepage": "https://github.com/datocms/datocms-search#readme",
+  "dependencies": {
+    "jquery": "^3.2.1",
+    "mustache": "^2.3.0",
+    "rimraf": "^2.6.1"
+  },
+  "devDependencies": {
+    "webpack": "^2.5.1"
+  }
+}
