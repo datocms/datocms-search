@@ -29,12 +29,12 @@
   "dependencies": {
     "debounce": "^1.0.2",
     "jquery": "^3.2.1",
-    "mustache": "^2.3.0",
-    "rimraf": "^2.6.1"
+    "mustache": "^2.3.0"
   },
   "devDependencies": {
     "uglify-js": "^2.8.0",
     "uglifyjs-webpack-plugin": "^0.4.3",
-    "webpack": "^2.5.1"
+    "webpack": "^2.5.1",
+    "rimraf": "^2.6.1"
   }
 }
