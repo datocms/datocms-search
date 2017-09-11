@@ -45,8 +45,8 @@ var debounce = require('debounce');
               return {
                 title: page.attributes.title,
                 url: page.attributes.url,
-                content: highlight.content ?
-                  ("..." + highlight.content.map(highlightMatches).join("...") + "...") :
+                body: highlight.body ?
+                  ("..." + highlight.body.map(highlightMatches).join("...") + "...") :
                   ''
               };
             });
