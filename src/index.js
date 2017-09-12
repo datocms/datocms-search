@@ -1,71 +1,95 @@
-var Mustache = require('mustache');
-var debounce = require('debounce');
+var nanoajax = require('nanoajax');
+var objectAssign = require('object-assign');
+var Promise = window.Promise || require('promise-polyfill');
 
-(function($) {
-  $.fn.extend({
-    datoSearch: function(options) {
-      this.defaultOptions = {
-        highlight: '<em />',
-        debounce: 200
-      };
-      var settings = $.extend({}, this.defaultOptions, options);
-
-      function highlightMatches(string) {
-        return string.replace(/\[h\](.+?)\[\/h\]/g, function(a, b) {
-          return $(settings.highlight).text(b)[0].outerHTML;
-        });
-      }
-
-      return this.each(function() {
-        var lastAjaxRequest;
-        var $this = $(this);
-        var template = $this.siblings('script[type=x-tmpl-mustache]').html();
-        Mustache.parse(template);
-
-        var $container = $('<div />')
-          .addClass('datocms-results')
-          .insertAfter($this);
-
-        $this.on('keyup', debounce(function() {
-          var query = $this.val();
-
-          if (lastAjaxRequest) {
-            lastAjaxRequest.abort();
-          }
-
-          lastAjaxRequest = $.ajax({
-            url: "https://site-api.datocms.com/search-results",
-            headers: { 'X-Site-Domain': settings.adminDomain },
-            data: { q: query },
-            dataType: "json"
-          })
-          .done(function(response) {
-            var results = $.map(response.data, function(page) {
-              var highlight = page.attributes.highlight;
-              return {
-                title: page.attributes.title,
-                url: page.attributes.url,
-                body: highlight.body ?
-                  ("..." + highlight.body.map(highlightMatches).join("...") + "...") :
-                  ''
-              };
-            });
-
-            var result = Mustache.render(
-              template,
-              { results: results, query: query }
-            );
-
-            $container.html(result);
-          })
-          .fail(function(e) {
-            console.log("error", e);
-          })
-          .always(function() {
-            console.log("complete");
-          });
-        }, settings.debounce));
-      });
-    }
+function highlightMatches(highlight, string) {
+  return string.replace(/\[h\](.+?)\[\/h\]/g, function(a, b) {
+    var div = document.createElement('div');
+    div.innerHTML = highlight;
+    div.children[0].innerText = b;
+    return div.children[0].outerHTML;
   });
-}(jQuery));
+}
+
+function DatoCmsSearch(apiToken) {
+  this.apiToken = apiToken;
+}
+
+DatoCmsSearch.prototype = {
+
+  search: function(query, options) {
+    options = Object.assign(
+      {
+        highlightWith: '<strong class="highlight"></strong>',
+        locale: null,
+      },
+      options
+    );
+
+    var url = 'https://site-api.datocms.com/search-results?';
+    url += 'q=' + encodeURIComponent(query);
+
+    if (options.locale) {
+      url += '&locale=' + encodeURIComponent(options.locale);
+    }
+
+    if (options.offset) {
+      url += '&offset=' + encodeURIComponent(options.offset);
+    }
+
+    if (options.limit) {
+      url += '&limit=' + encodeURIComponent(options.limit);
+    }
+
+    var ajaxOptions = {
+      url: url,
+      headers: {
+        'Authorization': 'API-Token ' + this.apiToken,
+        'Accept': 'application/json',
+      },
+    };
+
+    var highlighter = highlightMatches.bind(null, options.highlightWith);
+
+    return new Promise(function(resolve, reject) {
+      nanoajax.ajax(ajaxOptions, function(code, responseText) {
+        if (code === 401) {
+          reject(new Error('[DatoCMS Site Search] Invalid API token: make sure the API token exists and has the proper permissions!'));
+          return;
+        }
+
+        var response = JSON.parse(responseText);
+
+        var results = response.data.map(function(result) {
+          var highlight = result.attributes.highlight;
+
+          return {
+            url: result.attributes.url,
+
+            title: (
+              highlight.title ?
+                highlighter(highlight.title[0]) :
+                result.attributes.title
+            ),
+            body: (
+              highlight.body ?
+                (
+                  "..." +
+                  highlight.body.map(function(text) {
+                    return highlighter(text.trim());
+                  }).join("...") +
+                  "..."
+                ) :
+                result.attributes.body_excerpt
+            ),
+          };
+        });
+
+        resolve({ results: results, total: response.meta.total_count });
+      });
+    });
+  }
+};
+
+module.exports = DatoCmsSearch;
+
