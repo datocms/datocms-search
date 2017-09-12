@@ -1,6 +1,6 @@
 {
   "name": "datocms-search",
-  "version": "0.1.1",
+  "version": "0.1.2",
   "description": "DatoCMS search",
   "main": "src/index.js",
   "scripts": {
@@ -16,6 +16,7 @@
   },
   "files": [
     "/dist",
+    "/styles",
     "/src"
   ],
   "keywords": [
