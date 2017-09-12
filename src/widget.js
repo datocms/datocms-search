@@ -153,7 +153,7 @@ class SearchComponent extends Component {
       <div className="datocms-widget__locales" ref={(ref) => this.localeRef = ref}>
         <div className="datocms-widget__locales__active" onClick={this.handleLocaleToggle.bind(this)}>
           <span className="datocms-widget__locales__active__label">
-            Find results in&nbsp;
+            Find results in{' '}
           </span>
           <span className="datocms-widget__locales__active__value">
             {this.props.locales.find(locale => locale.value === this.state.locale).label}
@@ -186,7 +186,7 @@ class SearchComponent extends Component {
     return (
       <div className="datocms-widget__total">
         <span className="datocms-widget__total__label">
-          Total results found:&nbsp;
+          Total results found:{' '}
         </span>
         <span className="datocms-widget__total__value">
           {this.state.total}
