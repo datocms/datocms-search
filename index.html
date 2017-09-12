@@ -1,0 +1,49 @@
+<html>
+  <head>
+    <link rel="stylesheet" href="/styles/index.css" />
+    <style>
+      body {
+        font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol";
+      }
+
+      .search {
+        position: fixed;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        top: 0;
+        background: rgba(0, 0, 0, 0.5);
+      }
+
+      .search__inner {
+        max-width: 800px;
+        background: white;
+        border-radius: 3px;
+        margin: 50px auto;
+        padding: 20px;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="search">
+      <div class="search__inner">
+        <div id="search-container"></div>
+      </div>
+    </div>
+    <script src="/dist/datocms-search.widget.js"></script>
+    <script>
+      var client = new DatoCmsSearch("b293db3654076d696e954f8788d510");
+      client.addWidget(
+        "#search-container",
+        {
+          initialQuery: "florence",
+          initialLocale: "en",
+          locales: [
+            { label: "Italian", value: "it" },
+            { label: "English", value: "en" },
+          ]
+        }
+      );
+    </script>
+  </body>
+</html>

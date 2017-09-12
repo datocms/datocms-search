@@ -16,7 +16,6 @@ function DatoCmsSearch(apiToken) {
 }
 
 DatoCmsSearch.prototype = {
-
   search: function(query, options) {
     options = Object.assign(
       {
@@ -92,4 +91,3 @@ DatoCmsSearch.prototype = {
 };
 
 module.exports = DatoCmsSearch;
-
