@@ -3,25 +3,17 @@
   width: 100%;
 }
 
-.datocms-widget__search__input {
-  width: 100%;
-  box-sizing: border-box;
-  border: 0;
-  padding: 0;
-  font-size: 15px;
-  font-size: 1rem;
-  padding: 18px;
-}
-
-.datocms-widget__search__input:focus {
-  outline: none;
-}
-
 .datocms-widget__result {
   margin-bottom: 15px;
   border-left: 3px solid transparent;
   padding-left: 15px;
-  padding-right: 18px;
+  border-left-color: #eee;
+}
+
+@media screen and (min-width: 600px) {
+  .datocms-widget__result {
+    padding-right: 18px;
+  }
 }
 
 .datocms-widget__result:hover {
@@ -37,7 +29,7 @@
 
 .datocms-widget__result__body {
   margin-bottom: 10px;
-  font-size: 0.9em;
+  font-size: 0.8em;
   margin-bottom: 3px;
   white-space: nowrap;
   overflow: hidden;
@@ -71,9 +63,14 @@
 
 .datocms-widget__body {
   position: relative;
-  min-height: 80px;
-  max-height: 60vh;
-  overflow: auto;
+}
+
+@media screen and (min-width: 600px) {
+  .datocms-widget__body {
+    min-height: 80px;
+    max-height: 60vh;
+    overflow: auto;
+  }
 }
 
 .datocms-widget__loading {
@@ -99,29 +96,18 @@
   border-bottom: 1px solid #ddd;
 }
 
-.datocms-widget__header__inner {
-  box-shadow: 0 1px 5px rgba(0, 0, 0, 0.2);
-  display: flex;
-  align-items: center;
+.datocms-widget__search__input {
+  width: 100%;
+  box-sizing: border-box;
+  border: 0;
+  padding: 0;
+  font-size: 15px;
+  font-size: 1rem;
+  padding: 18px;
 }
 
-.datocms-widget__search {
-  flex: 1;
-}
-
-.datocms-widget__locales {
-  background-color: #eee;
-  position: relative;
-}
-
-.datocms-widget__locales__menu {
-  position: absolute;
-  top: 100%;
-  left: 0;
-  right: 0;
-  background-color: white;
-  box-shadow: 0 3px 5px rgba(0, 0, 0, 0.2);
-  z-index: 1000;
+.datocms-widget__search__input:focus {
+  outline: none;
 }
 
 .datocms-widget__locales__menu__item {
@@ -133,13 +119,6 @@
 
 .datocms-widget__locales__menu__item:hover {
   background-color: #f3f3f3;
-}
-
-.datocms-widget__locales__active {
-  white-space: nowrap;
-  color: #666;
-  padding: 18px;
-  cursor: pointer;
 }
 
 .datocms-widget__locales__active::after {
@@ -159,11 +138,68 @@
   color: #333;
 }
 
+@media screen and (max-width: 599px) {
+  .datocms-widget__search__input {
+    margin-bottom: 20px;
+  }
+
+  .datocms-widget__search__input {
+    box-shadow: 0 1px 5px rgba(0, 0, 0, 0.2);
+  }
+
+  .datocms-widget__locales {
+    position: relative;
+  }
+
+  .datocms-widget__locales__menu {
+    position: absolute;
+    top: 100%;
+    left: 0;
+    margin-top: 10px;
+    right: 0;
+    background-color: white;
+    box-shadow: 0 3px 5px rgba(0, 0, 0, 0.2);
+    z-index: 1000;
+  }
+}
+
+@media screen and (min-width: 600px) {
+  .datocms-widget__header__inner {
+    box-shadow: 0 1px 5px rgba(0, 0, 0, 0.2);
+    display: flex;
+    align-items: center;
+  }
+
+  .datocms-widget__search {
+    flex: 1;
+  }
+
+  .datocms-widget__locales {
+    background-color: #eee;
+    position: relative;
+  }
+
+  .datocms-widget__locales__menu {
+    position: absolute;
+    top: 100%;
+    left: 0;
+    right: 0;
+    background-color: white;
+    box-shadow: 0 3px 5px rgba(0, 0, 0, 0.2);
+    z-index: 1000;
+  }
+
+  .datocms-widget__locales__active {
+    white-space: nowrap;
+    color: #666;
+    padding: 18px;
+    cursor: pointer;
+  }
+}
+
 .datocms-widget__footer {
   margin-top: 15px;
   padding-top: 15px;
-  padding-left: 18px;
-  padding-right: 18px;
   border-top: 1px solid #ddd;
   font-size: 0.9em;
   color: #666;

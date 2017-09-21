@@ -37,7 +37,7 @@ class SearchComponent extends Component {
   }
 
   handleClickOutside(e) {
-    if (!this.localeRef.contains(e.target)) {
+    if (this.localeRef && !this.localeRef.contains(e.target)) {
       this.setState({ isLocaleOpen: false });
     }
   }
@@ -213,7 +213,7 @@ class SearchComponent extends Component {
     return (
       <div className="datocms-widget__pagination">
         {
-          pagesArray.map((index) => {
+          pages > 1 && pagesArray.map((index) => {
             var isActive = this.state.page === index;
             var className = ["datocms-widget__pagination__page"];
             if (isActive) {
@@ -245,7 +245,7 @@ class SearchComponent extends Component {
         <a
           className="datocms-widget__result__title"
           href={result.url}
-          dangerouslySetInnerHTML={{ __html: result.title }}
+          dangerouslySetInnerHTML={{ __html: result.title || "No title" }}
         />
         <div
           className="datocms-widget__result__body"

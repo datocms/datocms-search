@@ -1,6 +1,6 @@
 <html>
   <head>
-    <link rel="stylesheet" href="https://unpkg.com/datocms-search@0.1.2/styles/index.css" />
+    <link rel="stylesheet" href="/styles/index.css" />
     <style>
       body {
         font-family: Helvetica, Arial, sans-serif;
@@ -30,10 +30,18 @@
         <div id="search-container"></div>
       </div>
     </div>
-    <script src="https://unpkg.com/datocms-search@0.1.2/dist/datocms-search.widget.js"></script>
+    <script src="/dist/datocms-search.widget.js"></script>
     <script>
       var client = new DatoCmsSearch("b293db3654076d696e954f8788d510");
-      client.addWidget("#search-container");
+      client.addWidget(
+        "#search-container",
+        {
+          locales: [
+            { label: "English", value: "en" },
+            { label: "Italian", value: "it" },
+          ]
+        }
+      );
     </script>
   </body>
 </html>
