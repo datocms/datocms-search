@@ -11,8 +11,9 @@ function highlightMatches(highlight, string) {
   });
 }
 
-function DatoCmsSearch(apiToken) {
+function DatoCmsSearch(apiToken, environment = "production") {
   this.apiToken = apiToken;
+  this.environment = environment;
 }
 
 DatoCmsSearch.prototype = {
@@ -27,6 +28,7 @@ DatoCmsSearch.prototype = {
 
     var url = 'https://site-api.datocms.com/search-results?';
     url += 'q=' + encodeURIComponent(query);
+    url += '&environment=' + encodeURIComponent(this.environment);
 
     if (options.locale) {
       url += '&locale=' + encodeURIComponent(options.locale);
