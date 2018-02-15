@@ -1,6 +1,8 @@
 var nanoajax = require('nanoajax');
 var objectAssign = require('object-assign');
-var Promise = window.Promise || require('promise-polyfill');
+var Promise = typeof window !== 'undefined' ?
+  (window.Promise || require('promise-polyfill')) :
+  require('promise-polyfill');
 
 function highlightMatches(highlight, string) {
   return string.replace(/\[h\](.+?)\[\/h\]/g, function(a, b) {
