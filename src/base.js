@@ -72,6 +72,7 @@ DatoCmsSearch.prototype = {
                 highlighter(highlight.title[0]) :
                 result.attributes.title
             ),
+
             body: (
               highlight.body ?
                 (
@@ -83,6 +84,11 @@ DatoCmsSearch.prototype = {
                 ) :
                 result.attributes.body_excerpt
             ),
+
+            raw: {
+              title: result.attributes.title,
+              body: result.attributes.body_excerpt
+            }
           };
         });
 
