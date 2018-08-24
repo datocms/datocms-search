@@ -4,6 +4,9 @@ import createElement from 'inferno-create-element';
 import objectAssign from 'object-assign';
 import DatoCmsSearch from './base';
 
+import LocalizedStrings from 'localized-strings';
+import strings from './localization';
+
 class SearchComponent extends Component {
   constructor(props) {
     super(props);
@@ -45,6 +48,7 @@ class SearchComponent extends Component {
   handleLocaleChange(locale, e) {
     e.preventDefault();
     this.setState({ locale, isLocaleOpen: false }, () => this.performSearch());
+    strings.setLanguage(locale);
   }
 
   handleLocaleToggle(e) {
@@ -109,8 +113,8 @@ class SearchComponent extends Component {
                 <div className="datocms-widget__no-results__label">
                   {
                     this.state.query === "" ?
-                      'Please search something! :)' :
-                      `No results found for "${this.state.query}" :(`
+                      strings.empty_search :
+                      strings.formatString(strings.not_found, {val: this.state.query})
                   }
                 </div>
               </div>
@@ -140,7 +144,7 @@ class SearchComponent extends Component {
         <input
           className="datocms-widget__search__input"
           type="text"
-          placeholder="What are you looking for?"
+          placeholder={strings.placeholder}
           onChange={this.handleQueryChange.bind(this)}
           value={this.state.query}
         />
@@ -153,7 +157,7 @@ class SearchComponent extends Component {
       <div className="datocms-widget__locales" ref={(ref) => this.localeRef = ref}>
         <div className="datocms-widget__locales__active" onClick={this.handleLocaleToggle.bind(this)}>
           <span className="datocms-widget__locales__active__label">
-            Find results in{' '}
+            {strings.find_result}
           </span>
           <span className="datocms-widget__locales__active__value">
             {this.props.locales.find(locale => locale.value === this.state.locale).label}
@@ -186,7 +190,7 @@ class SearchComponent extends Component {
     return (
       <div className="datocms-widget__total">
         <span className="datocms-widget__total__label">
-          Total results found:{' '}
+          {strings.total_found}
         </span>
         <span className="datocms-widget__total__value">
           {this.state.total}
