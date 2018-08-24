@@ -1480,6 +1480,10 @@ loader-utils@^1.0.2:
     emojis-list "^2.0.0"
     json5 "^0.5.0"
 
+localized-strings@^0.0.11:
+  version "0.0.11"
+  resolved "https://registry.yarnpkg.com/localized-strings/-/localized-strings-0.0.11.tgz#96ccab4bd1855a850f3099dc78e1b61423f6cecd"
+
 locate-path@^2.0.0:
   version "2.0.0"
   resolved "https://registry.yarnpkg.com/locate-path/-/locate-path-2.0.0.tgz#2b568b265eec944c6d9c0de9c3dbbbca0354cd8e"
