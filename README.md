@@ -1,45 +1,18 @@
-DatoCMS Site Search
+DatoCMS site search
 ===============
 
-**Search Widget** is a JS library also includes a full-featured widget ready to be used in your website
+DatoCMS Site Search is a way to deliver tailored search results to your site visitors. You can think of it as a replacement for the now discontinued Google Site Search.
 
 ## Installation
 
 Via CDN add our JS and CSS in your page:
 
 ```html
-<link rel="stylesheet" href="https://unpkg.com/datocms-search@0.1.5/styles/index.css" />
-<script src="https://unpkg.com/datocms-search@0.1.5/dist/datocms-search.widget.js"></script>
+<link rel="stylesheet" href="https://unpkg.com/datocms-search/styles/index.css" />
+<script src="https://unpkg.com/datocms-search/dist/datocms-search.widget.js"></script>
 ```
 
 ## Documentation
 
-You can now call `client.addWidget()` specifying the CSS Selector where the widget will be inserted:
-
-```html
-<body>
-  <div id="search-container"></div>
-  <script>
-    var client = new DatoCmsSearch("YOUR_API_TOKEN", "production");
-    client.addWidget("#search-container");
-  </script>
-</body>
-```
-
-If your site is multi-language, you can configure the widget to present them:
-
-```html
-<script>
-  var client = new DatoCmsSearch("YOUR_API_TOKEN", "production");
-  client.addWidget(
-    "#search-container",
-    {
-      locales: [
-        { label: "English", value: "en" },
-        { label: "Italiano", value: "it" },
-      ]
-    }
-  );
-</script>
-```
+[Read the complete documentation on our site](https://www.datocms.com/docs/search/).
 
