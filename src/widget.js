@@ -5,7 +5,7 @@ import objectAssign from 'object-assign';
 import DatoCmsSearch from './base';
 
 import LocalizedStrings from 'localized-strings';
-import strings from './localization';
+import i18nFallbacksStrings from './localization';
 
 class SearchComponent extends Component {
   constructor(props) {
@@ -19,7 +19,9 @@ class SearchComponent extends Component {
       locale: props.initialLocale || (props.locales ? props.locales[0].value : null),
       page: 0,
       isLocaleOpen: false,
+      strings: new LocalizedStrings(i18nFallbacksStrings)
     };
+    this.state.strings.setLanguage(props.base_locale);
 
     this.handleClickOutside = this.handleClickOutside.bind(this);
   }
@@ -48,7 +50,6 @@ class SearchComponent extends Component {
   handleLocaleChange(locale, e) {
     e.preventDefault();
     this.setState({ locale, isLocaleOpen: false }, () => this.performSearch());
-    strings.setLanguage(locale);
   }
 
   handleLocaleToggle(e) {
@@ -113,8 +114,8 @@ class SearchComponent extends Component {
                 <div className="datocms-widget__no-results__label">
                   {
                     this.state.query === "" ?
-                      strings.empty_search :
-                      strings.formatString(strings.not_found, {val: this.state.query})
+                      this.state.strings.empty_search :
+                      this.state.strings.formatString(this.state.strings.not_found, {val: this.state.query})
                   }
                 </div>
               </div>
@@ -144,7 +145,7 @@ class SearchComponent extends Component {
         <input
           className="datocms-widget__search__input"
           type="text"
-          placeholder={strings.placeholder}
+          placeholder={this.state.strings.placeholder}
           onChange={this.handleQueryChange.bind(this)}
           value={this.state.query}
         />
@@ -157,7 +158,7 @@ class SearchComponent extends Component {
       <div className="datocms-widget__locales" ref={(ref) => this.localeRef = ref}>
         <div className="datocms-widget__locales__active" onClick={this.handleLocaleToggle.bind(this)}>
           <span className="datocms-widget__locales__active__label">
-            {strings.find_result}
+            {this.state.strings.find_result}
           </span>
           <span className="datocms-widget__locales__active__value">
             {this.props.locales.find(locale => locale.value === this.state.locale).label}
@@ -190,7 +191,7 @@ class SearchComponent extends Component {
     return (
       <div className="datocms-widget__total">
         <span className="datocms-widget__total__label">
-          {strings.total_found}
+          {this.state.strings.total_found}
         </span>
         <span className="datocms-widget__total__value">
           {this.state.total}
@@ -265,6 +266,17 @@ class SearchComponent extends Component {
 }
 
 DatoCmsSearch.prototype.addWidget = function startWidget(selector, props) {
+  let base_lang = (navigator.languages && navigator.languages[0]) ||
+    navigator.language || navigator.userLanguage
+  props.base_locale = props.initialLocale || (props.locales ? props.locales[0].value : null) || base_lang.split("-")[0]
+  let i18nStrings = props.i18nStrings || {}
+  if (i18nFallbacksStrings[props.base_locale] == undefined) {
+    i18nFallbacksStrings[props.base_locale] = i18nStrings;
+  } else {
+    Object.assign(i18nFallbacksStrings[props.base_locale], i18nStrings)
+  }
+  props.i18nStrings = i18nFallbacksStrings;
+
   Inferno.render(
     createElement(SearchComponent, objectAssign({ client: this, perPage: 8 }, props)),
     document.querySelector(selector)

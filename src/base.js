@@ -4,9 +4,6 @@ var Promise = typeof window !== 'undefined' ?
   (window.Promise || require('promise-polyfill')) :
   require('promise-polyfill');
 
-import LocalizedStrings from 'localized-strings';
-import strings from './localization';
-
 function highlightMatches(highlight, string) {
   return string.replace(/\[h\](.+?)\[\/h\]/g, function(a, b) {
     var div = document.createElement('div');
@@ -60,7 +57,7 @@ DatoCmsSearch.prototype = {
     return new Promise(function(resolve, reject) {
       nanoajax.ajax(ajaxOptions, function(code, responseText) {
         if (code === 401) {
-          reject(new Error(strings.invalid_token));
+          reject(new Error('[DatoCMS Site Search] Invalid API token: make sure the API token exists and has the proper permissions!'));
           return;
         }
 
