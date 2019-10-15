@@ -36,10 +36,21 @@
       client.addWidget(
         "#search-container",
         {
+          // specify in which languages you allow the search and override the language labels
           locales: [
-            { label: "English", value: "en" },
-            { label: "Italian", value: "it" },
-          ]
+            { label: "Inglese", value: "en" },
+            { label: "Italiano", value: "it" },
+          ],
+          // override in which locale we are presenting the interface and preselect that locale
+          initialLocale: "it",
+          // override the strings used in the interface
+          i18nStrings: {
+            emptySearch: "Please search something! :)",
+            notFound: "No results found for {val} :(",
+            totalFound: "Total results found: ",
+            findResult: "Find results in ",
+            placeholder: "What are you looking for?"
+          }
         }
       );
     </script>

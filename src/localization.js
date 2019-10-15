@@ -3,33 +3,33 @@
  */
 
 let i18nFallbacksStrings = {
- "en": {
-   empty_search: "Please search something! :)",
-   not_found: "No results found for {val} :(",
-   total_found: "Total results found: ",
-   find_result: "Find results in ",
-   placeholder: "What are you looking for?"
+ 'en': {
+   emptySearch: 'Please search something! :)',
+   notFound: 'No results found for {val} :(',
+   totalFound: 'Total results found: ',
+   findResult: 'Find results in ',
+   placeholder: 'What are you looking for?'
  },
- "it": {
-   empty_search: "Devi cercare qualcosa! :)",
-   not_found: "Nessun risultato trovato per {val} :(",
-   total_found: "Totale risultati trovati: ",
-   find_result: "Cerca risultati in ",
-   placeholder: "Cosa stai cercando?"
+ 'it': {
+   emptySearch: 'Devi cercare qualcosa! :)',
+   notFound: 'Nessun risultato trovato per {val} :(',
+   totalFound: 'Totale risultati trovati: ',
+   findResult: 'Cerca risultati in ',
+   placeholder: 'Cosa stai cercando?'
  },
- "fr": {
-   empty_search: "S'il vous plait chercher quelque chose! :)",
-   not_found: "Aucun resultat trouve pour {val} :(",
-   total_found: "Total des resultats trouves: ",
-   find_result: "Trouver des resultats dans ",
-   placeholder: "Que cherchez-vous?"
+ 'fr': {
+   emptySearch: 'S\'il vous plait chercher quelque chose! :)',
+   notFound: 'Aucun resultat trouve pour {val} :(',
+   totalFound: 'Total des resultats trouves: ',
+   findResult: 'Trouver des resultats dans ',
+   placeholder: 'Que cherchez-vous?'
  },
- "es": {
-   empty_search: "Por favor busca algo! :)",
-   not_found: "No se encontraron resultados para {val} :(",
-   total_found: "Total de resultados encontrados: ",
-   find_result: "Encuentra resultados en ",
-   placeholder: "Que estas buscando?"
+ 'es': {
+   emptySearch: 'Por favor busca algo! :)',
+   notFound: 'No se encontraron resultados para {val} :(',
+   totalFound: 'Total de resultados encontrados: ',
+   findResult: 'Encuentra resultados en ',
+   placeholder: 'Que estas buscando?'
  }
 };
 

@@ -21,7 +21,7 @@ class SearchComponent extends Component {
       isLocaleOpen: false,
       strings: new LocalizedStrings(i18nFallbacksStrings)
     };
-    this.state.strings.setLanguage(props.base_locale);
+    this.state.strings.setLanguage(props.baseLocale || 'en');
 
     this.handleClickOutside = this.handleClickOutside.bind(this);
   }
@@ -114,8 +114,8 @@ class SearchComponent extends Component {
                 <div className="datocms-widget__no-results__label">
                   {
                     this.state.query === "" ?
-                      this.state.strings.empty_search :
-                      this.state.strings.formatString(this.state.strings.not_found, {val: this.state.query})
+                      this.state.strings.emptySearch :
+                      this.state.strings.formatString(this.state.strings.notFound, {val: this.state.query})
                   }
                 </div>
               </div>
@@ -158,7 +158,7 @@ class SearchComponent extends Component {
       <div className="datocms-widget__locales" ref={(ref) => this.localeRef = ref}>
         <div className="datocms-widget__locales__active" onClick={this.handleLocaleToggle.bind(this)}>
           <span className="datocms-widget__locales__active__label">
-            {this.state.strings.find_result}
+            {this.state.strings.findResult}
           </span>
           <span className="datocms-widget__locales__active__value">
             {this.props.locales.find(locale => locale.value === this.state.locale).label}
@@ -191,7 +191,7 @@ class SearchComponent extends Component {
     return (
       <div className="datocms-widget__total">
         <span className="datocms-widget__total__label">
-          {this.state.strings.total_found}
+          {this.state.strings.totalFound}
         </span>
         <span className="datocms-widget__total__value">
           {this.state.total}
@@ -266,16 +266,17 @@ class SearchComponent extends Component {
 }
 
 DatoCmsSearch.prototype.addWidget = function startWidget(selector, props) {
-  let base_lang = (navigator.languages && navigator.languages[0]) ||
-    navigator.language || navigator.userLanguage
-  props.base_locale = props.initialLocale || (props.locales ? props.locales[0].value : null) || base_lang.split("-")[0]
-  let i18nStrings = props.i18nStrings || {}
-  if (i18nFallbacksStrings[props.base_locale] == undefined) {
-    i18nFallbacksStrings[props.base_locale] = i18nStrings;
-  } else {
-    Object.assign(i18nFallbacksStrings[props.base_locale], i18nStrings)
+  if(props) {
+    const baseLang = (navigator.languages && navigator.languages[0]) || navigator.language || navigator.userLanguage;
+    props.baseLocale = props.initialLocale || (props.locales ? props.locales[0].value : null) || baseLang.split('-')[0];
+    const i18nStrings = props.i18nStrings || {};
+    if (i18nFallbacksStrings[props.baseLocale] == undefined) {
+      i18nFallbacksStrings[props.baseLocale] = i18nStrings;
+    } else {
+      Object.assign(i18nFallbacksStrings[props.baseLocale], i18nStrings);
+    }
+    props.i18nStrings = i18nFallbacksStrings;
   }
-  props.i18nStrings = i18nFallbacksStrings;
 
   Inferno.render(
     createElement(SearchComponent, objectAssign({ client: this, perPage: 8 }, props)),
