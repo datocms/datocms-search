@@ -16,6 +16,7 @@ class SearchComponent extends Component {
       locale: props.initialLocale || (props.locales ? props.locales[0].value : null),
       page: 0,
       isLocaleOpen: false,
+      buildTriggerId: props.buildTriggerId
     };
 
     this.handleClickOutside = this.handleClickOutside.bind(this);
@@ -72,6 +73,7 @@ class SearchComponent extends Component {
         offset: this.state.page * this.props.perPage,
         limit: this.props.perPage,
         locale: this.state.locale,
+        buildTriggerId: this.state.buildTriggerId
       }
     )
       .then(({ results, total }) => {

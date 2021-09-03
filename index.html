@@ -33,14 +33,17 @@
     <script src="/dist/datocms-search.widget.js"></script>
     <script>
       var client = new DatoCmsSearch("b293db3654076d696e954f8788d510");
+      // Add build trigger id in props object if search is based on build
+      var props = {
+        locales: [
+          { label: "English", value: "en" },
+          { label: "Italian", value: "it" },
+        ]
+      };
+
       client.addWidget(
         "#search-container",
-        {
-          locales: [
-            { label: "English", value: "en" },
-            { label: "Italian", value: "it" },
-          ]
-        }
+        props
       );
     </script>
   </body>

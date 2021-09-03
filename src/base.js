@@ -30,7 +30,12 @@ DatoCmsSearch.prototype = {
 
     var url = 'https://site-api.datocms.com/search-results?';
     url += 'q=' + encodeURIComponent(query);
-    url += '&environment=' + encodeURIComponent(this.environment);
+
+    if (options.buildTriggerId) {
+      url += '&build_trigger_id=' + encodeURIComponent(options.buildTriggerId);
+    } else {
+      url += '&environment=' + encodeURIComponent(this.environment);
+    }
 
     if (options.locale) {
       url += '&locale=' + encodeURIComponent(options.locale);
