@@ -109,7 +109,7 @@ class SearchComponent extends Component {
                 <div className="datocms-widget__no-results__label">
                   {
                     this.state.query === "" ?
-                      'Please search something! :)' :
+                      'Please search for something! :)' :
                       `No results found for "${this.state.query}" :(`
                   }
                 </div>
